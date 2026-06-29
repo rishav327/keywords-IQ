@@ -43,10 +43,10 @@ Return ONLY a JSON object with NO extra text, NO markdown, NO backticks.
   "topTip": "one actionable SEO tip"
 }
 
-Replace all placeholder values with real data for the topic: "${query}". Return ONLY the JSON.`;
+Replace all placeholder values with real data for: "${query}". Return ONLY valid JSON.`;
 
     const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${apiKey}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -63,7 +63,7 @@ Replace all placeholder values with real data for the topic: "${query}". Return 
     if (!res.ok) {
       const errText = await res.text();
       console.error("Gemini error:", errText);
-      return Response.json({ error: "Gemini API error" }, { status: 500 });
+      return Response.json({ error: "Gemini API error: " + errText }, { status: 500 });
     }
 
     const data = await res.json();
